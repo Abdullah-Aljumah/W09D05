@@ -7,9 +7,9 @@ const Home = () => {
   const state = useSelector((state) => {
     return state;
   });
-
   const [posts, setPosts] = useState([]);
 
+  // getPostWithCommentsAndLikes
   const getPost = async () => {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/allpost`);
     setPosts(res.data);
@@ -33,10 +33,35 @@ const Home = () => {
         headers: { Authorization: `Bearer ${state.signIn.token}` },
       }
     );
-    console.log(res, "RESRESRRES");
+    // console.log(res, "RESRESRRES");
     getPost();
   };
 
+  const like = async (postId, userId) => {
+  
+    let res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/like/${userId}/${postId}`,
+      {
+        headers: { Authorization: `Bearer ${state.signIn.token}` },
+      }
+    );
+    // console.log(typeof res.data);
+  };
+
+  const likesCount = async (id) => {
+    let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/likes/${id}`);
+    console.log(res.data.length, "LIIIKES");
+    // setLikes(res.data.length)
+    // return res.data
+  };
+
+  useEffect(() => {
+    likesCount();
+  }, []);
+
+  const updatePost = (id) =>{
+      console.log(id);
+  }
   return (
     <div>
       <h1>Home</h1>
@@ -56,6 +81,12 @@ const Home = () => {
               ) : (
                 <p></p>
               )}
+
+              <button onClick={() => like(item._id, item.user._id)}>
+                {" "}
+                Like
+              </button>
+              <input type="text" name="update" placeholder="Update post" onChange={()=>updatePost(item._id)} />
               <hr />
             </div>
           );
