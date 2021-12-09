@@ -10,6 +10,7 @@ const signIn = (state = insitialState, action) => {
       // eslint-disable-next-line
       const { user, token } = payload;
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
       return { user, token };
 
     case "LOGOUT":
@@ -18,8 +19,9 @@ const signIn = (state = insitialState, action) => {
 
     default:
       const tokenStorage = localStorage.getItem("token");
+      const userStorage = JSON.parse(localStorage.getItem("user"));
       if (tokenStorage) {
-        return { token: tokenStorage };
+        return { token: tokenStorage, user: userStorage };
       } else {
         return state;
       }
