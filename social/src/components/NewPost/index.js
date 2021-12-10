@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import "./style.css"
 const NewPost = ({ setPost, getPost }) => {
   const state = useSelector((state) => {
     return state;
@@ -51,7 +52,7 @@ const NewPost = ({ setPost, getPost }) => {
           onChange={(e) => setDesc(e.target.value)}
           required
         />
-        <input type="submit" name="submit" value="Post" />
+        <input type="submit" name="submit" value="Post"  />
       </form>
     </div>
   );

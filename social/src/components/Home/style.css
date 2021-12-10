@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post {
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
+  margin-bottom: 20px;
+  background-color: rgba(150, 150, 150, 0.11);
+  transition: transform 0.3s ease-in-out;
+}
+
+.post:hover {
+  transform: scale(1.03);
+  transition: transform 0.4s ease-in-out;
+}
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.btn {
+  width: 6rem;
+  height: 2rem;
+  padding: 0;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 255, 64, 0.253);
+  cursor: pointer;
+  border: 0;
+}
+
+#deleteBtn {
+  margin-bottom: 20px;
+  background-color: rgba(255, 0, 0, 0.253);
+}
+
+.descAndTime {
+  text-align: center;
+}
+
+.time {
+  font-size: 5px;
+}
+
+.btnUpdate {
+  background-color: rgba(0, 255, 64, 0.253);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.divNewAndLog {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.btnNewAndLog {
+  width: 10rem;
+  height: 2rem;
+  cursor: pointer;
+  border: 0;
+}
+
+#btnNew {
+  background-color: rgba(4, 4, 255, 0.384);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  transition: 0.3s ease-in-out;
+}
+
+#btnNew:hover {
+  transition: 0.3s ease-in-out;
+  background-color: rgba(4, 4, 255, 0.26);
+}
+
+#btnLog {
+  background-color: rgba(85, 68, 51, 0.384);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  transition: 0.3s ease-in-out;
+}
+
+#btnLog:hover {
+  transition: 0.3s ease-in-out;
+  background-color: rgba(85, 68, 51, 0.274);
+}

@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import NewPost from "../NewPost";
+import UpdatePost from "../UpdatePost";
+import "./style.css";
 const Home = () => {
   const state = useSelector((state) => {
     return state;
@@ -45,30 +47,10 @@ const Home = () => {
   };
 
   // Update post
-  const updatePost = async (e, id) => {
-    e.preventDefault();
-
-    // eslint-disable-next-line
-    let res = await axios.put(
-      `${process.env.REACT_APP_BASE_URL}/updatePost/${id}`,
-      {
-        desc: e.target[0].value,
-      },
-      {
-        headers: { Authorization: `Bearer ${state.signIn.token}` },
-      }
-    );
-    e.target[0].value = "";
-    getPost();
-  };
 
   const descPage = (id) => {
     navigate(`/${id}`);
   };
-
-  // const newPost = async () => {
-  //   navigate("/newPost");
-  // };
 
   const toggleNewPost = () => {
     setPost(!post);
@@ -76,60 +58,61 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Home</h1>
-      <button onClick={() => toggleNewPost()}>New post</button>
-      {post ? <NewPost setPost={setPost} getPost={getPost} /> : <p></p>}
+      <div className="divNewAndLog">
+        <button onClick={() => toggleNewPost()} className="btnNewAndLog" id="btnNew">New post</button>
+        {post ? <NewPost setPost={setPost} getPost={getPost} /> : <p></p>}
+        <form onClick={logOut}>
+          <button type="submit" style={{ cursor: "pointer" }} className="btnNewAndLog" id="btnLog">
+            {" "}
+            Log out{" "}
+          </button>
+        </form>
+      </div>
+      <hr/>
+      <div className="container">
+        {posts &&
+          posts.map((item, i) => {
+            return (
+              <div key={i} className="post">
+                <img
+                  src={item.img}
+                  alt="post"
+                  style={{ width: "30rem", cursor: "pointer", height:"25rem" }}
+                  onClick={() => descPage(item._id)}
+                />
+                <p className="user">@{item.user.username} </p>
 
-      {posts &&
-        posts.map((item, i) => {
-          return (
-            <div key={i}>
-              <p>@{item.user.username} </p>
-              <img
-                src={item.img}
-                alt="post"
-                style={{ width: "20rem", cursor: "pointer" }}
-                onClick={() => descPage(item._id)}
-              />
-              <p>{item.desc} </p>
-              <p>{item.time} </p>
-              {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
-              state.signIn.user._id === item.user._id ? (
-                <button
-                  onClick={() => deletePost(item._id)}
-                  style={{ cursor: "pointer" }}
-                >
-                  Delete Post
-                </button>
-              ) : (
-                <p></p>
-              )}
+                <div className="descAndTime">
+                  <hr />
+                  <p>{item.desc} </p>
+                  <hr />
+                  <p className="time">{item.time} </p>
+                </div>
+                <div className="btns">
+                  {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
+                  state.signIn.user._id === item.user._id ? (
+                    <button
+                      onClick={() => deletePost(item._id)}
+                      style={{ cursor: "pointer" }}
+                      className="btn"
+                      id="deleteBtn"
+                    >
+                      Delete Post
+                    </button>
+                  ) : (
+                    <p></p>
+                  )}
 
-              {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
-              state.signIn.user._id === item.user._id ? (
-                <form onSubmit={(e) => updatePost(e, item._id)}>
-                  <input type="text" name="update" placeholder=" update..." />
-                  <input
-                    type="submit"
-                    value="Update"
-                    style={{ cursor: "pointer" }}
+                  <UpdatePost
+                    postId={item._id}
+                    userId={item.user._id}
+                    getPost={getPost}
                   />
-                </form>
-              ) : (
-                <p></p>
-              )}
-
-              <hr />
-            </div>
-          );
-        })}
-
-      <form onClick={logOut}>
-        <button type="submit" style={{ cursor: "pointer" }}>
-          {" "}
-          Log out{" "}
-        </button>
-      </form>
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };
