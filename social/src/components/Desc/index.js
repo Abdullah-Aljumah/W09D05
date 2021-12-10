@@ -3,16 +3,22 @@ import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+
 const Desc = () => {
   let id = useParams().id;
+  const navigate = useNavigate();
+
   const state = useSelector((state) => {
     return state;
   });
-  //   console.log(state);
+
+  //
   const [post, setPost] = useState([]);
   const [comment, setComment] = useState([]);
   const [likes, setLikes] = useState([]);
 
+  // Get post with comments and likes
   const getData = async () => {
     let res = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/getPostWithCommentsAndLikes/${id}`,
@@ -20,23 +26,25 @@ const Desc = () => {
         headers: { Authorization: `Bearer ${state.signIn.token}` },
       }
     );
-    // console.log(res.data, "RES");
 
     let data0 = res.data[0];
     let data1 = res.data[1];
     let data2 = res.data[2];
 
-    // console.log("DATA", data0._id);
-    console.log(data0);
+
+    // Set the data into the variables
     setLikes(data2.length);
     setComment(data1);
     setPost(data0);
   };
+
+  // Invoke get data function
   useEffect(() => {
     getData();
     // eslint-disable-next-line
   }, []);
 
+  // Button like
   const likePost = async () => {
     // eslint-disable-next-line
     let res = await axios.post(
@@ -44,6 +52,8 @@ const Desc = () => {
     );
     getData();
   };
+
+  // Create new commnet
   const newComment = async (e) => {
     e.preventDefault();
     // eslint-disable-next-line
@@ -60,6 +70,8 @@ const Desc = () => {
     getData();
   };
 
+
+  // Delte comment
   const deleteComment = async (id) => {
     // eslint-disable-next-line
     let res = await axios.delete(
@@ -74,6 +86,7 @@ const Desc = () => {
 
   return (
     <div>
+      <button onClick={() => navigate("/")}>Go back</button>
       {post && (
         <div>
           <img
@@ -90,7 +103,7 @@ const Desc = () => {
       <p>{likes}</p>
       <h1>Comments</h1>
       <form onSubmit={newComment}>
-        <input type="text" name="Newcomment" placeholder=" Newc omment" />
+        <input type="text" name="Newcomment" placeholder=" New omment" />
         <input type="submit" value="Post" style={{ cursor: "pointer" }} />
       </form>
       {comment && (

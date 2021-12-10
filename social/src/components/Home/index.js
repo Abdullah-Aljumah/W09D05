@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import NewPost from "../NewPost";
 const Home = () => {
   const state = useSelector((state) => {
     return state;
@@ -11,6 +12,7 @@ const Home = () => {
 
   //
   const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState(false);
   const navigate = useNavigate();
   // Get all posts
   const getPost = async () => {
@@ -61,12 +63,23 @@ const Home = () => {
   };
 
   const descPage = (id) => {
-    console.log(id);
-    navigate(`/${id}`)
+    navigate(`/${id}`);
   };
+
+  // const newPost = async () => {
+  //   navigate("/newPost");
+  // };
+
+  const toggleNewPost = () => {
+    setPost(!post);
+  };
+
   return (
     <div>
       <h1>Home</h1>
+      <button onClick={() => toggleNewPost()}>New post</button>
+      {post ? <NewPost setPost={setPost} getPost={getPost} /> : <p></p>}
+
       {posts &&
         posts.map((item, i) => {
           return (
