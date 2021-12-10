@@ -3,65 +3,67 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 const Home = () => {
   const state = useSelector((state) => {
     return state;
   });
-  const [posts, setPosts] = useState([]);
 
-  // getPostWithCommentsAndLikes
+  //
+  const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
+  // Get all posts
   const getPost = async () => {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/allpost`);
     setPosts(res.data);
   };
 
+  // Inboke getPost function
   useEffect(() => {
     getPost();
     // eslint-disable-next-line
   }, []);
 
+  // Log out
   const logOut = () => {
     localStorage.clear();
   };
 
+  // Delete post
   const deletePost = async (id) => {
     console.log(id, "IDDD");
-
+    // eslint-disable-next-line
     let res = await axios.delete(
       `${process.env.REACT_APP_BASE_URL}/softDelete/${id}`,
       {
         headers: { Authorization: `Bearer ${state.signIn.token}` },
       }
     );
-    // console.log(res, "RESRESRRES");
     getPost();
   };
 
-  const like = async (postId, userId) => {
-  
-    let res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/like/${userId}/${postId}`,
+  // Update post
+  const updatePost = async (e, id) => {
+    e.preventDefault();
+
+    // eslint-disable-next-line
+    let res = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/updatePost/${id}`,
+      {
+        desc: e.target[0].value,
+      },
       {
         headers: { Authorization: `Bearer ${state.signIn.token}` },
       }
     );
-    // console.log(typeof res.data);
+    e.target[0].value = "";
+    getPost();
   };
 
-  const likesCount = async (id) => {
-    let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/likes/${id}`);
-    console.log(res.data.length, "LIIIKES");
-    // setLikes(res.data.length)
-    // return res.data
+  const descPage = (id) => {
+    console.log(id);
+    navigate(`/${id}`)
   };
-
-  useEffect(() => {
-    likesCount();
-  }, []);
-
-  const updatePost = (id) =>{
-      console.log(id);
-  }
   return (
     <div>
       <h1>Home</h1>
@@ -70,23 +72,40 @@ const Home = () => {
           return (
             <div key={i}>
               <p>@{item.user.username} </p>
-              <img src={item.img} alt="post" style={{ width: "20rem" }} />
+              <img
+                src={item.img}
+                alt="post"
+                style={{ width: "20rem", cursor: "pointer" }}
+                onClick={() => descPage(item._id)}
+              />
               <p>{item.desc} </p>
               <p>{item.time} </p>
               {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
               state.signIn.user._id === item.user._id ? (
-                <button onClick={() => deletePost(item._id)}>
+                <button
+                  onClick={() => deletePost(item._id)}
+                  style={{ cursor: "pointer" }}
+                >
                   Delete Post
                 </button>
               ) : (
                 <p></p>
               )}
 
-              <button onClick={() => like(item._id, item.user._id)}>
-                {" "}
-                Like
-              </button>
-              <input type="text" name="update" placeholder="Update post" onChange={()=>updatePost(item._id)} />
+              {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
+              state.signIn.user._id === item.user._id ? (
+                <form onSubmit={(e) => updatePost(e, item._id)}>
+                  <input type="text" name="update" placeholder=" update..." />
+                  <input
+                    type="submit"
+                    value="Update"
+                    style={{ cursor: "pointer" }}
+                  />
+                </form>
+              ) : (
+                <p></p>
+              )}
+
               <hr />
             </div>
           );
@@ -103,3 +122,29 @@ const Home = () => {
 };
 
 export default Home;
+
+// Like button
+// const like = async (postId, userId) => {
+//   let res = await axios.post(
+//     `${process.env.REACT_APP_BASE_URL}/like/${userId}/${postId}`,
+//     {
+//       headers: { Authorization: `Bearer ${state.signIn.token}` },
+//     }
+//   );
+// };
+
+// Test
+// const likesCount = async (id) => {
+//   let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/likes/${id}`);
+// };
+
+// useEffect(() => {
+//   likesCount();
+// }, []);
+
+// updatePost
+
+/* <button onClick={() => like(item._id, item.user._id)}>
+                {" "}
+                Like
+              </button> */
