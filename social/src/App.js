@@ -4,12 +4,13 @@ import { Route } from "react-router";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
+import Desc from "./components/Desc";
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route exact path="/home" element={<Home />} />
+        <Route exact path="/:id" element={<Desc />} />
 
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/" element={<Login />} />
