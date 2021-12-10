@@ -57,39 +57,48 @@ const Register = () => {
     navigate("/");
   };
   return (
-    <div>
-      <h1> Register </h1>
-      <input
-        type="text"
-        name="username"
-        placeholder="username"
-        onChange={(e) => {
-          setUserName(e.target.value);
-        }}
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-      />
-      <input
-        type="submit"
-        value="Register"
-        className="btn btn-primary"
-        onClick={register}
-      />
-      <p onClick={login}>Already have an account?</p>
+    <div className="divLogin">
+      <div className="wrapperLogin">
+        <h1> Register </h1>
+
+        <div className="btnsForm">
+          <input
+            className="inputLogin"
+            type="text"
+            name="username"
+            placeholder="Username"
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
+          />
+          <input
+            className="inputLogin"
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <input
+            className="inputLogin"
+            type="password"
+            name="password"
+            placeholder="********"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <input
+            className="inputLogin"
+            id="loginSubmit"
+            type="submit"
+            value="Register"
+            onClick={register}
+          />
+        </div>
+        <p onClick={login} style={{cursor:"pointer"}}>Already have an account ?</p>
+      </div>
     </div>
   );
 };

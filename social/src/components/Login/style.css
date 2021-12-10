@@ -1,0 +1,34 @@
+.divLogin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.wrapperLogin {
+  text-align: center;
+}
+
+.btnsForm {
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+}
+
+.inputLogin {
+  height: 2.5rem;
+  margin-top: 5px;
+}
+
+#loginSubmit {
+  cursor: pointer;
+  background-color: rgba(1, 80, 252, 0.603);
+  border: 0;
+  transition: 0.3s ease-in-out;
+}
+
+#loginSubmit:hover {
+  transition: 0.3s ease-in-out;
+  background-color: rgba(1, 80, 252, 0.705);
+}

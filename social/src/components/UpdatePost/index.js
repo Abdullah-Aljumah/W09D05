@@ -41,18 +41,17 @@ const UpdatePost = ({ postId, userId, getPost }) => {
         Update
       </button>
       {toggle ? (
-        <div>
+        <div className="updateBtnInput">
           {" "}
           {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
           state.signIn.user._id === userId ? (
             <form onSubmit={(e) => updatePost(e)}>
-              <input type="text" name="update" placeholder=" update..." />
+              <input type="text" name="update" placeholder=" update..." className="val" />
               <input
               className="btnUpdate"
                 type="submit"
                 value="Update"
                 style={{ cursor: "pointer" }}
-                // id="btnUpdate"
                 required
               />
             </form>

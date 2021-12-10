@@ -59,16 +59,27 @@ const Home = () => {
   return (
     <div>
       <div className="divNewAndLog">
-        <button onClick={() => toggleNewPost()} className="btnNewAndLog" id="btnNew">New post</button>
+        <button
+          onClick={() => toggleNewPost()}
+          className="btnNewAndLog"
+          id="btnNew"
+        >
+          New post
+        </button>
         {post ? <NewPost setPost={setPost} getPost={getPost} /> : <p></p>}
         <form onClick={logOut}>
-          <button type="submit" style={{ cursor: "pointer" }} className="btnNewAndLog" id="btnLog">
+          <button
+            type="submit"
+            style={{ cursor: "pointer" }}
+            className="btnNewAndLog"
+            id="btnLog"
+          >
             {" "}
             Log out{" "}
           </button>
         </form>
       </div>
-      <hr/>
+      <hr />
       <div className="container">
         {posts &&
           posts.map((item, i) => {
@@ -77,7 +88,7 @@ const Home = () => {
                 <img
                   src={item.img}
                   alt="post"
-                  style={{ width: "30rem", cursor: "pointer", height:"25rem" }}
+                  style={{ width: "30rem", cursor: "pointer", height: "25rem" }}
                   onClick={() => descPage(item._id)}
                 />
                 <p className="user">@{item.user.username} </p>
@@ -102,12 +113,19 @@ const Home = () => {
                   ) : (
                     <p></p>
                   )}
-
-                  <UpdatePost
-                    postId={item._id}
-                    userId={item.user._id}
-                    getPost={getPost}
-                  />
+                  {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
+                  state.signIn.user._id === item.user._id ? (
+                    <div>
+                      {" "}
+                      <UpdatePost
+                        postId={item._id}
+                        userId={item.user._id}
+                        getPost={getPost}
+                      />{" "}
+                    </div>
+                  ) : (
+                    <p></p>
+                  )}
                 </div>
               </div>
             );

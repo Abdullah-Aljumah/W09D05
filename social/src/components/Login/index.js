@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { login_reducser } from "../../reducers/login";
 import { useSelector } from "react-redux";
 import Home from "../Home";
+import "./style.css";
 const Login = () => {
   const state = useSelector((state) => {
     return state;
@@ -18,7 +19,6 @@ const Login = () => {
 
   const logIn = async (e) => {
     e.preventDefault();
-
     const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, {
       data: emailOrUsername,
       password: password,
@@ -33,33 +33,46 @@ const Login = () => {
   const reg = () => {
     navigate("/register");
   };
-  
+
   return (
     <div>
       {state.signIn.token ? (
         <Home />
       ) : (
-        <>
-          <h1>Login</h1>
-          <form onSubmit={logIn}>
-            <input
-              type="text"
-              name="email"
-              placeholder="Email Address"
-              onChange={(e) => setEmailOrUsername(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <input type="submit" value="Login" />
-          </form>
-          <p onClick={reg}>Not have an account ?</p>{" "}
-        </>
+        <div className="divLogin">
+          <div className="wrapperLogin">
+            <h1>Login</h1>
+            <div className="btnsLogin">
+              <form onSubmit={logIn} className="btnsForm">
+                <input
+                  className="inputLogin"
+                  type="text"
+                  name="email"
+                  placeholder="Email or Username"
+                  onChange={(e) => setEmailOrUsername(e.target.value)}
+                  required
+                />
+                <input
+                  className="inputLogin"
+                  type="password"
+                  name="password"
+                  placeholder="********"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <input
+                  className="inputLogin"
+                  id="loginSubmit"
+                  type="submit"
+                  value="Login"
+                />
+              </form>
+            </div>
+            <p onClick={reg} style={{ cursor: "pointer" }}>
+              Not have an account ?
+            </p>{" "}
+          </div>
+        </div>
       )}
     </div>
   );
