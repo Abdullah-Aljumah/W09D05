@@ -41,6 +41,10 @@ const Login = () => {
     navigate("/register");
   };
 
+  const reset = () =>{
+    navigate("/reset");
+
+  }
   return (
     <div>
       {state.signIn.token ? (
@@ -78,6 +82,7 @@ const Login = () => {
             <p onClick={reg} style={{ cursor: "pointer" }}>
               Not have an account ?
             </p>{" "}
+            <p onClick={reset}>Forget the password ?</p>
           </div>
         </div>
       )}
