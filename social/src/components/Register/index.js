@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import validator from "validator";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -23,6 +24,24 @@ const Register = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const validate = (value) => {
+    if (
+      validator.isStrongPassword(value, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      setErrorMessage("Is Strong Password");
+    } else {
+      setErrorMessage("Is Not Strong Password");
+    }
+  };
 
   const register = async () => {
     let check = false;
@@ -49,12 +68,26 @@ const Register = () => {
           password,
         }
       );
+      console.log(res.data);
       navigate("/");
     }
   };
 
   const login = () => {
     navigate("/");
+  };
+
+  const invalPass = () => {
+    Swal.fire({
+      title:
+        "Please enter atleast upper and lower and number and symbol characters",
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+    });
   };
   return (
     <div className="divLogin">
@@ -84,20 +117,34 @@ const Register = () => {
             className="inputLogin"
             type="password"
             name="password"
-            placeholder="********"
+            id="passIput"
+            placeholder="Password"
             onChange={(e) => {
+              validate(e.target.value);
               setPassword(e.target.value);
             }}
-          />
+          />{" "}
+          <span
+            style={{
+              fontWeight: "bold",
+              color: "red",
+            }}
+          >
+            {errorMessage}
+          </span>
           <input
             className="inputLogin"
             id="loginSubmit"
             type="submit"
             value="Register"
-            onClick={register}
+            onClick={
+              errorMessage === "Is Strong Password" ? register : invalPass
+            }
           />
         </div>
-        <p onClick={login} style={{cursor:"pointer"}}>Already have an account ?</p>
+        <p onClick={login} style={{ cursor: "pointer" }}>
+          Already have an account ?
+        </p>
       </div>
     </div>
   );
