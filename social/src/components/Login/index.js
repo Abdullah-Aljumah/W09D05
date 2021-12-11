@@ -7,6 +7,8 @@ import { login_reducser } from "../../reducers/login";
 import { useSelector } from "react-redux";
 import Home from "../Home";
 import "./style.css";
+// import Swal from "sweetalert2";
+
 const Login = () => {
   const state = useSelector((state) => {
     return state;
@@ -23,11 +25,16 @@ const Login = () => {
       data: emailOrUsername,
       password: password,
     });
-    const data = {
-      user: res.data.result,
-      token: res.data.token,
-    };
-    dispatch(login_reducser({ data }));
+  
+    if (res.data.result.activate === false) {
+      return navigate("/Confirm");
+    } else {
+      const data = {
+        user: res.data.result,
+        token: res.data.token,
+      };
+      dispatch(login_reducser({ data }));
+    }
   };
 
   const reg = () => {

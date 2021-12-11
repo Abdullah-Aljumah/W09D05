@@ -56,7 +56,7 @@ const Register = () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: " email or username alerady exists",
+        text: "Invalid email or username",
       });
     } else {
       // eslint-disable-next-line
@@ -68,8 +68,9 @@ const Register = () => {
           password,
         }
       );
-      console.log(res.data);
-      navigate("/");
+      console.log(res.data._id);
+      navigate(`/confirm/${res.data._id}`);
+      
     }
   };
 
@@ -80,7 +81,7 @@ const Register = () => {
   const invalPass = () => {
     Swal.fire({
       title:
-        "Please enter atleast upper and lower and number and symbol characters",
+        "Invalid email or password",
       showClass: {
         popup: "animate__animated animate__fadeInDown",
       },
