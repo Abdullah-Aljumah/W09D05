@@ -9,6 +9,7 @@ const signIn = (state = insitialState, action) => {
     case "LOGIN":
       // eslint-disable-next-line
       const { user, token } = payload;
+      console.log(payload,"payloadpayloadpayload");
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       return { user, token };
