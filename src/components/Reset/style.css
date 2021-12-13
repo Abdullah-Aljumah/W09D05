@@ -1,0 +1,16 @@
+.divEmailRest {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.emailForm {
+  display: flex;
+  flex-direction: column;
+  width: 50vh;
+}
+
+.spanPass {
+    margin-top: 5px;
+}

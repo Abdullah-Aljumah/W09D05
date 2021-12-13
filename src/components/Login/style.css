@@ -19,6 +19,7 @@
 .inputLogin {
   height: 2.5rem;
   margin-top: 5px;
+  text-align: center;
 }
 
 #loginSubmit {
@@ -35,4 +36,22 @@
 
 #passIput {
   width: 25rem;
+}
+
+
+
+.google {
+  height: 2.5rem;
+  margin-top: 5px;
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+}
+
+.google:hover {
+  transition: 0.3s ease-in-out;
+
+  background-color: rgb(255, 72, 72);
 }

@@ -10,8 +10,8 @@ const UpdatePost = ({ postId, userId, getPost }) => {
   });
 
   //
-  const [toggle, setToggle] = useState(false);
-
+  const [toggle, setToggle] = useState(true);
+  const [updateBtn, setUpdateBtn] = useState(true);
   // update post
   const updatePost = async (e) => {
     e.preventDefault();
@@ -26,29 +26,37 @@ const UpdatePost = ({ postId, userId, getPost }) => {
           headers: { Authorization: `Bearer ${state.signIn.token}` },
         }
       );
-      setToggle(false);
       getPost();
       e.target[0].value = "";
     } else {
-      setToggle(false);
+      setToggle(true);
+  
     }
   };
 
   return (
     <div>
-      <button onClick={() => setToggle(!toggle)} className="btn">
-        {" "}
-        Update
-      </button>
       {toggle ? (
+        <div>
+          <button onClick={() => setToggle(!toggle)} className="btn">
+            {" "}
+            Update
+          </button>
+        </div>
+      ) : (
         <div className="updateBtnInput">
           {" "}
           {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
           state.signIn.user._id === userId ? (
             <form onSubmit={(e) => updatePost(e)}>
-              <input type="text" name="update" placeholder=" update..." className="val" />
               <input
-              className="btnUpdate"
+                type="text"
+                name="update"
+                placeholder=" update..."
+                className="val"
+              />
+              <input
+                className="btnUpdate"
                 type="submit"
                 value="Update"
                 style={{ cursor: "pointer" }}
@@ -59,8 +67,6 @@ const UpdatePost = ({ postId, userId, getPost }) => {
             <p></p>
           )}{" "}
         </div>
-      ) : (
-        <p> </p>
       )}
     </div>
   );

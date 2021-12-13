@@ -6,12 +6,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import NewPost from "../NewPost";
 import UpdatePost from "../UpdatePost";
+import { BiLogOut } from "react-icons/bi";
+
+import { MdOutlinePostAdd } from "react-icons/md";
+
 import "./style.css";
 const Home = () => {
   const state = useSelector((state) => {
     return state;
   });
-
+  console.log(state);
   //
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState(false);
@@ -20,6 +24,7 @@ const Home = () => {
   const getPost = async () => {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/allpost`);
     setPosts(res.data);
+    console.log(res.data);
   };
 
   // Inboke getPost function
@@ -55,47 +60,74 @@ const Home = () => {
   const toggleNewPost = () => {
     setPost(!post);
   };
-
+  console.log(state.signIn.user.avatar);
   return (
     <div>
       <div className="divNewAndLog">
-        <button
-          onClick={() => toggleNewPost()}
-          className="btnNewAndLog"
-          id="btnNew"
-        >
-          New post
-        </button>
-        {post ? <NewPost setPost={setPost} getPost={getPost} /> : <p></p>}
-        <form onClick={logOut}>
-          <button
-            type="submit"
-            style={{ cursor: "pointer" }}
-            className="btnNewAndLog"
-            id="btnLog"
-          >
-            {" "}
-            Log out{" "}
+        <div>
+          <button onClick={() => toggleNewPost()} id="btnNew">
+            <MdOutlinePostAdd />
           </button>
-        </form>
+          {post ? <NewPost setPost={setPost} getPost={getPost} /> : <p></p>}
+          <form onClick={logOut}>
+            <button type="submit" style={{ cursor: "pointer" }} id="btnLog">
+              <BiLogOut />
+            </button>
+          </form>
+        </div>
+        <div className="avatar">
+          <img
+            src={state.signIn.user.avatar}
+            alt="avatar"
+            style={{
+              width: "80px",
+              borderRadius: "100%",
+            }}
+          />{" "}
+        </div>
       </div>
       <hr />
       <div className="container">
         {posts &&
-          posts.map((item, i) => {
+          posts.reverse().map((item, i) => {
             return (
               <div key={i} className="post">
-                <img
-                  src={item.img}
-                  alt="post"
-                  style={{ width: "30rem", cursor: "pointer", height: "25rem" }}
-                  onClick={() => descPage(item._id)}
-                />
-                <p className="user">@{item.user.username} </p>
+                {item.img ? (
+                  <div>
+                    {" "}
+                    <img
+                      src={item.img}
+                      alt="post"
+                      style={{
+                        width: "80vh",
+                        cursor: "pointer",
+                        height: "65vh",
+                      }}
+                      onClick={() => descPage(item._id)}
+                    />
+                  </div>
+                ) : (
+                  <p> </p>
+                )}
+
+                <div className="avatarAndUser">
+                  {" "}
+                  <img
+                    className="avatarPost"
+                    src={item.user.avatar}
+                    alt="avatar"
+                    style={{
+                      width: "50px",
+                      borderRadius: "100%",
+                      height: "50px",
+                    }}
+                  />{" "}
+                  <p className="user">@{item.user.username} </p>{" "}
+                </div>
 
                 <div className="descAndTime">
                   <hr />
-                  <p>{item.desc} </p>
+                  <p onClick={() => descPage(item._id)}>{item.desc} </p>
                   <hr />
                   <p className="time">{item.time} </p>
                 </div>
@@ -111,7 +143,7 @@ const Home = () => {
                       Delete Post
                     </button>
                   ) : (
-                    <p></p>
+                    ""
                   )}
                   {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
                   state.signIn.user._id === item.user._id ? (
@@ -124,7 +156,7 @@ const Home = () => {
                       />{" "}
                     </div>
                   ) : (
-                    <p></p>
+                    ""
                   )}
                 </div>
               </div>

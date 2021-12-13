@@ -84,15 +84,22 @@ const Desc = () => {
 
   return (
     <div className="containerDesc">
-      <button onClick={() => navigate("/")} className="goBackBtn">🔙</button>
+      <button onClick={() => navigate("/")} className="goBackBtn">
+        🔙
+      </button>
       {post && (
         <div className="postDesc">
-          <img
-            src={post.img}
-            alt="post"
-            style={{ width: "100%", height: "25rem" }}
-            className="imgDesc"
-          />
+          {post.img ? (
+            <img
+              src={post.img}
+              alt="post"
+              style={{ width: "100%", height: "25rem" }}
+              className="imgDesc"
+            />
+          ) : (
+            ""
+          )}
+
           <h2>{post.desc} </h2>
           <p className="time">{post.time}</p>
         </div>

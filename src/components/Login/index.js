@@ -87,7 +87,7 @@ const Login = () => {
                   className="inputLogin"
                   type="password"
                   name="password"
-                  placeholder="********"
+                  placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
@@ -99,13 +99,15 @@ const Login = () => {
                 />
               </form>
             </div>
-            <button className="inputLogin" id="loginSubmit" onClick={oAuth}>
+            <button className="google" onClick={oAuth}>
               Google+
             </button>
             <p onClick={reg} style={{ cursor: "pointer" }}>
               Not have an account ?
             </p>{" "}
-            <p onClick={reset}>Forgot the password ?</p>
+            <p style={{ cursor: "pointer" }} onClick={reset}>
+              Forgot the password ?
+            </p>
           </div>
         </div>
       )}

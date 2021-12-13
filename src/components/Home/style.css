@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 5rem;
 }
 
 .post {
@@ -9,6 +10,8 @@
   margin-bottom: 20px;
   background-color: rgba(150, 150, 150, 0.11);
   transition: transform 0.3s ease-in-out;
+  min-width: 80vh;
+  min-height: 30vh;
 }
 
 .post:hover {
@@ -19,6 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  height: 15vh;
 }
 
 .btn {
@@ -32,7 +36,7 @@
 }
 
 #deleteBtn {
-  margin-bottom: 20px;
+  /* margin-bottom: 15px; */
   background-color: rgba(255, 0, 0, 0.253);
 }
 
@@ -44,12 +48,10 @@
   font-size: 5px;
 }
 
-
-
 .divNewAndLog {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .btnNewAndLog {
@@ -60,23 +62,45 @@
 }
 
 #btnNew {
-  background-color: rgba(4, 4, 255, 0.384);
+  /* background-color: rgba(4, 4, 255, 0.384); */
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
   transition: 0.3s ease-in-out;
+  font-size: 28px;
+  border: 0;
 }
 
 #btnNew:hover {
   transition: 0.3s ease-in-out;
-  background-color: rgba(4, 4, 255, 0.26);
 }
 
 #btnLog {
-  background-color: rgba(85, 68, 51, 0.384);
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
   transition: 0.3s ease-in-out;
+  font-size: 28px;
+  border: 0;
 }
 
 #btnLog:hover {
   transition: 0.3s ease-in-out;
   background-color: rgba(85, 68, 51, 0.274);
+}
+
+/* 
+.avatarAndLog {
+  display: flex;
+  gap: 50px;
+} */
+
+.avatar {
+  float: right;
+}
+
+.avatarAndUser {
+  display: flex;
+  gap: 10px;
+}
+
+.avatarPost {
+  margin-left: 10px;
+  margin-top: 5px;
 }
