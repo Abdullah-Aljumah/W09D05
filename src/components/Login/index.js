@@ -59,8 +59,7 @@ const Login = () => {
           console.log(user.result);
           console.log(user.token);
           const data = { token: user.token, user: user.result };
-          console.log(data, "DAAAAAAAAAAATA");
-          dispatch(login_reducser({data}));
+          dispatch(login_reducser({ data }));
           navigate("/");
         }
       }
@@ -100,14 +99,13 @@ const Login = () => {
                 />
               </form>
             </div>
-            <h4>Or login using:</h4>
-            <button className="googleBtn" onClick={oAuth}>
+            <button className="inputLogin" id="loginSubmit" onClick={oAuth}>
               Google+
             </button>
             <p onClick={reg} style={{ cursor: "pointer" }}>
               Not have an account ?
             </p>{" "}
-            <p onClick={reset}>Forget the password ?</p>
+            <p onClick={reset}>Forgot the password ?</p>
           </div>
         </div>
       )}
