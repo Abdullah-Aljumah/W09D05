@@ -29,14 +29,15 @@ const Login = () => {
       data: emailOrUsername,
       password: password,
     });
-    if (res.data == "Wrong email or password") {
+    
+    if (res.data === "Wrong email or password") {
       return Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Wrong email or password",
       });
     }
-    if (res.data == "not found") {
+    if (res.data === "not found") {
       return Swal.fire({
         icon: "error",
         title: "Oops...",

@@ -11,7 +11,6 @@ const UpdatePost = ({ postId, userId, getPost }) => {
 
   //
   const [toggle, setToggle] = useState(true);
-  const [updateBtn, setUpdateBtn] = useState(true);
   // update post
   const updatePost = async (e) => {
     e.preventDefault();

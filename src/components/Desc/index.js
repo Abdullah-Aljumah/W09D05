@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import "./style.css";
+import { AiOutlineStepBackward } from "react-icons/ai";
 const Desc = () => {
   let id = useParams().id;
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Desc = () => {
   const [post, setPost] = useState([]);
   const [comment, setComment] = useState([]);
   const [likes, setLikes] = useState([]);
-
+  const [nameUser, setNameUser] = useState("");
   // Get post with comments and likes
   const getData = async () => {
     let res = await axios.get(
@@ -30,7 +31,8 @@ const Desc = () => {
     let data0 = res.data[0];
     let data1 = res.data[1];
     let data2 = res.data[2];
-
+    let userName = res.data[0].user.username;
+    setNameUser(userName);
     // Set the data into the variables
     setLikes(data2.length);
     setComment(data1);
@@ -81,14 +83,19 @@ const Desc = () => {
     );
     getData();
   };
-
   return (
     <div className="containerDesc">
       <div className="backAndAvatar">
         <button onClick={() => navigate("/")} className="goBackBtn">
-          🔙
+          <AiOutlineStepBackward />
         </button>
+        {nameUser && (
+          <div>
+            <p className="nameUserPost">{nameUser} post</p>
+          </div>
+        )}
         <img
+          className="avatar"
           src={state.signIn.user.avatar}
           alt="avatar"
           style={{
@@ -110,7 +117,7 @@ const Desc = () => {
             ""
           )}
 
-          <h2>{post.desc} </h2>
+          <h2 className="desch2">{post.desc} </h2>
           <p className="time">{post.time}</p>
         </div>
       )}
@@ -148,6 +155,7 @@ const Desc = () => {
                         width: "80px",
                         borderRadius: "100%",
                       }}
+                      alt="avatar"
                     />
                     <p className="nameUserComment">@{item.user.username}</p>
                   </div>

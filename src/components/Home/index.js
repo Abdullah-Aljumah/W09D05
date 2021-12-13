@@ -13,16 +13,15 @@ const Home = () => {
   const state = useSelector((state) => {
     return state;
   });
-  console.log(state);
   //
   const [posts, setPosts] = useState([]);
+  // eslint-disable-next-line
   const [post, setPost] = useState(false);
   const navigate = useNavigate();
   // Get all posts
   const getPost = async () => {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/allpost`);
     setPosts(res.data);
-    console.log(res.data);
   };
 
   // Inboke getPost function
@@ -59,16 +58,14 @@ const Home = () => {
     <div>
       <div className="divNewAndLog">
         <div>
-        <form onClick={logOut}>
+          <form onClick={logOut}>
             <button type="submit" style={{ cursor: "pointer" }} id="btnLog">
               <BiLogOut />
             </button>
           </form>
         </div>
         <div>
-        
           <NewPost setPost={setPost} getPost={getPost} />
-
         </div>
         <div className="avatar">
           <img
@@ -81,7 +78,7 @@ const Home = () => {
           />{" "}
         </div>
       </div>
-      <hr />
+      {/* <hr /> */}
       <div className="container">
         {posts &&
           posts.reverse().map((item, i) => {

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./style.css";
-import { VscNewFile } from "react-icons/vsc";
 
 const NewPost = ({ setPost, getPost }) => {
   const state = useSelector((state) => {
