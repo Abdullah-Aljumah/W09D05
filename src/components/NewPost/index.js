@@ -2,7 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import "./style.css"
+import "./style.css";
+import { VscNewFile } from "react-icons/vsc";
+
 const NewPost = ({ setPost, getPost }) => {
   const state = useSelector((state) => {
     return state;
@@ -35,6 +37,7 @@ const NewPost = ({ setPost, getPost }) => {
   return (
     <div>
       <form
+        className="formNewPost"
         onSubmit={(e) => {
           newPost(e);
         }}
@@ -42,17 +45,22 @@ const NewPost = ({ setPost, getPost }) => {
         <input
           type="text"
           name="img"
+          className="inputNewPost"
           placeholder="Image URL"
           onChange={(e) => setImg(e.target.value)}
         />
         <input
           type="text"
           name="desc"
+          className="inputNewPost"
           placeholder="Descriopn"
           onChange={(e) => setDesc(e.target.value)}
           required
         />
-        <input type="submit" name="submit" value="Post"  />
+        <button type="submit" name="submit" className="btnNewPost">
+          {" "}
+          New post
+        </button>
       </form>
     </div>
   );

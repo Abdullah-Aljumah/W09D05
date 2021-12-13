@@ -84,16 +84,26 @@ const Desc = () => {
 
   return (
     <div className="containerDesc">
-      <button onClick={() => navigate("/")} className="goBackBtn">
-        🔙
-      </button>
+      <div className="backAndAvatar">
+        <button onClick={() => navigate("/")} className="goBackBtn">
+          🔙
+        </button>
+        <img
+          src={state.signIn.user.avatar}
+          alt="avatar"
+          style={{
+            width: "80px",
+            borderRadius: "100%",
+          }}
+        />{" "}
+      </div>
       {post && (
         <div className="postDesc">
           {post.img ? (
             <img
               src={post.img}
               alt="post"
-              style={{ width: "100%", height: "25rem" }}
+              style={{ width: "100%", height: "35rem" }}
               className="imgDesc"
             />
           ) : (
@@ -129,8 +139,18 @@ const Desc = () => {
           <div>
             {comment.map((item, i) => {
               return (
-                <div key={i}>
-                  <p>@{item.user.username}</p>
+                <div key={i} className="divComments">
+                  <hr />
+                  <div className="avatarAndUserName">
+                    <img
+                      src={item.user.avatar}
+                      style={{
+                        width: "80px",
+                        borderRadius: "100%",
+                      }}
+                    />
+                    <p className="nameUserComment">@{item.user.username}</p>
+                  </div>
                   <p>{item.desc}</p>
                   <p className="time">{item.time}</p>
                   {state.signIn.user.role === "61a734cd947e8eba47efbc68" ||
@@ -145,7 +165,6 @@ const Desc = () => {
                   ) : (
                     <p></p>
                   )}
-                  <hr />
                 </div>
               );
             })}

@@ -7,6 +7,8 @@ import { login_reducser } from "../../reducers/login";
 import { useSelector } from "react-redux";
 import Home from "../Home";
 import "./style.css";
+import Swal from "sweetalert2";
+
 const popupTools = require("popup-tools");
 
 // import Swal from "sweetalert2";
@@ -27,6 +29,20 @@ const Login = () => {
       data: emailOrUsername,
       password: password,
     });
+    if (res.data == "Wrong email or password") {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Wrong email or password",
+      });
+    }
+    if (res.data == "not found") {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Wrong email or password",
+      });
+    }
 
     if (res.data.result.activate === false) {
       return navigate("/Confirm");
@@ -54,10 +70,7 @@ const Login = () => {
       { width: 500, height: 500 },
       (err, user) => {
         if (err) {
-          console.log("caughton error:", err.message);
         } else {
-          console.log(user.result);
-          console.log(user.token);
           const data = { token: user.token, user: user.result };
           dispatch(login_reducser({ data }));
           navigate("/");

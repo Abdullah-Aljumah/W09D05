@@ -1,0 +1,22 @@
+.formNewPost {
+    margin-top: 10px;
+}
+
+.inputNewPost {
+    height: 2.1rem;
+    text-align: center;
+    width: 20rem;
+}
+
+.btnNewPost {
+    height: 2.1rem;
+    border: 0;
+    margin-left: 5px;
+    border-radius: 5%;
+    background-color: rgba(1, 80, 252, 0.705);
+    cursor: pointer;
+}
+
+.postImg {
+    min-height: 80vh;
+}

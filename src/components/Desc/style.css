@@ -52,5 +52,25 @@
   background-color: #fff;
   font-size: 2rem;
   cursor: pointer;
+}
 
+.divComments {
+  margin-top: 7vh;
+}
+
+
+.backAndAvatar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.avatarAndUserName {
+  display: flex;
+  align-items:flex-end;
+}
+
+.nameUserComment {
+  margin-top: 5px;
+  height: 1px;
+  
 }

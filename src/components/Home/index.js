@@ -8,8 +8,6 @@ import NewPost from "../NewPost";
 import UpdatePost from "../UpdatePost";
 import { BiLogOut } from "react-icons/bi";
 
-import { MdOutlinePostAdd } from "react-icons/md";
-
 import "./style.css";
 const Home = () => {
   const state = useSelector((state) => {
@@ -57,23 +55,20 @@ const Home = () => {
     navigate(`/${id}`);
   };
 
-  const toggleNewPost = () => {
-    setPost(!post);
-  };
-  console.log(state.signIn.user.avatar);
   return (
     <div>
       <div className="divNewAndLog">
         <div>
-          <button onClick={() => toggleNewPost()} id="btnNew">
-            <MdOutlinePostAdd />
-          </button>
-          {post ? <NewPost setPost={setPost} getPost={getPost} /> : <p></p>}
-          <form onClick={logOut}>
+        <form onClick={logOut}>
             <button type="submit" style={{ cursor: "pointer" }} id="btnLog">
               <BiLogOut />
             </button>
           </form>
+        </div>
+        <div>
+        
+          <NewPost setPost={setPost} getPost={getPost} />
+
         </div>
         <div className="avatar">
           <img
@@ -98,6 +93,7 @@ const Home = () => {
                     <img
                       src={item.img}
                       alt="post"
+                      className="postImg"
                       style={{
                         width: "80vh",
                         cursor: "pointer",
@@ -127,7 +123,12 @@ const Home = () => {
 
                 <div className="descAndTime">
                   <hr />
-                  <p onClick={() => descPage(item._id)}>{item.desc} </p>
+                  <p
+                    onClick={() => descPage(item._id)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {item.desc}{" "}
+                  </p>
                   <hr />
                   <p className="time">{item.time} </p>
                 </div>

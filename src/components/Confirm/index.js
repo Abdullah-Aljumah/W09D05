@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-
+import "./style.css"
 const Confirm = () => {
   const id = useParams().id;
   const navigate = useNavigate();
@@ -15,10 +15,10 @@ const Confirm = () => {
     let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/user/${id}`);
     setCode(res.data[0].activateCode);
     Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please confirm your email",
-      });
+      icon: "error",
+      title: "Oops...",
+      text: "Please confirm your email",
+    });
   };
 
   useEffect(() => {
@@ -36,20 +36,20 @@ const Confirm = () => {
       console.log(result, "result");
       navigate("/");
     } else {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Invalid code",
-          });
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Invalid code",
+      });
       console.log("Not confirmed");
     }
   };
   return (
-    <div>
+    <div className="divConfirm">
       <h1>Enter the code</h1>
-      <form onSubmit={(e) => confirm(e)}>
-        <input />
-        <input type="submit" value="Submit" />
+      <form onSubmit={(e) => confirm(e)} className="formConfirm">
+        <input placeholder="Enter the code"  className="inputCode"/>
+        <input type="submit" value="Submit" className="submitConfirm"  />
       </form>
     </div>
   );

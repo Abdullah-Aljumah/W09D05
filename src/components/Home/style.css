@@ -12,6 +12,8 @@
   transition: transform 0.3s ease-in-out;
   min-width: 80vh;
   min-height: 30vh;
+  border-radius: 2%;
+
 }
 
 .post:hover {
